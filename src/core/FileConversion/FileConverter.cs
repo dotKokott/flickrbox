@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -13,6 +14,9 @@ namespace core.FileConversion
     {
         public static void FileToPng(string sourcePath, string destinationPath)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             using (var fs = new FileStream(sourcePath, FileMode.Open))
             {
                 var length = (int)fs.Length;
@@ -37,6 +41,9 @@ namespace core.FileConversion
                 image.Save(destinationPath, ImageFormat.Png);
                 image.Dispose();
             }
+
+            stopWatch.Stop();
+            Debug.WriteLine(String.Format("FileToPng: {0} s or {1} ms", stopWatch.Elapsed.Seconds, stopWatch.ElapsedMilliseconds));
         }
 
         private static Byte getNextByte(Stream stream)
@@ -51,6 +58,9 @@ namespace core.FileConversion
 
         public static void FileFromPng(string sourcePath, string destinationPath)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             using (var fs = new FileStream(destinationPath, FileMode.Create))
             {
                 var image = new Bitmap(sourcePath);
@@ -87,6 +97,9 @@ namespace core.FileConversion
                 }
                 image.Dispose();
             }
+
+            stopWatch.Stop();
+            Debug.WriteLine(String.Format("FileFromPng: {0} s or {1} ms", stopWatch.Elapsed.Seconds, stopWatch.ElapsedMilliseconds));
         }
 
     }
