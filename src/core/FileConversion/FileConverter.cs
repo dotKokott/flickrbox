@@ -19,7 +19,7 @@ namespace core.FileConversion
                 //TODO: dynamic width
                 var width = 1000;
                 var height = (int)Math.Ceiling((double)(length / 4) / width);
-
+                
                 var image = new Bitmap(width, height);                
                 image.SetPixel(0, 0, Color.FromArgb(length));
                 for(int x = 1; x < width; x++) 
