@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileConversion\FileConverter.cs" />
+    <Compile Include="FlickrBoxContext.cs" />
     <Compile Include="FlickrIntegration\FlickrAuthentication.cs" />
     <Compile Include="FlickrIntegration\FlickrClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

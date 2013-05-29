@@ -44,6 +44,9 @@ namespace console
                 Console.WriteLine("Already authenticated!");
             }
 
+            var context = new FlickrBoxContext(client);
+
+
             Console.ReadLine();
         }
     }

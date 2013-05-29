@@ -12,12 +12,14 @@ namespace core.FlickrIntegration
     public class FlickrClient
     {
         public Flickr Flickr { get; private set; }
-
         public bool Authenticated { get; private set; }
+        public FoundUser User { get; private set; }
 
         public FlickrClient(string apiKey, string sharedSecret, string token)
         {
             Flickr = new Flickr(apiKey, sharedSecret, token);
+
+            User = Flickr.PeopleFindByUserName("me");
             Authenticated = true;
         }
 
@@ -30,6 +32,8 @@ namespace core.FlickrIntegration
         public void Authenticate(FlickrAuthentication authentication)
         {            
             Flickr = authentication.Authenticate();
+            User = Flickr.PeopleFindByUserName("me");
+
             Authenticated = true;            
         }
 
@@ -42,6 +46,11 @@ namespace core.FlickrIntegration
             options.Page = 1;
 
             return Flickr.PhotosSearch(options);
+        }
+
+        public Photoset GetPhotoSetByName(string name)
+        {
+            return Flickr.PhotosetsGetList(User.UserId).Where(ps => ps.Title == name).FirstOrDefault();
         }
 
         public string UploadPicture(string filePath, string title)
